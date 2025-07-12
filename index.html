@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sticky Note MCP Demo</title>
+  <script src="https://unpkg.com/@mcp/browser"></script>
+</head>
+<body>
+  <h1>Sticky Note MCP Demo</h1>
+  <p id="display">No notes yet.</p>
+  <script>
+    let note = "No notes yet.";
+    window.mcp = {
+      tools: {
+        saveNote: {
+          description: "Save a new sticky note",
+          parameters: {
+            type: "object",
+            properties: {
+              text: { type: "string", description: "The note content" }
+            },
+            required: ["text"]
+          },
+          run({ text }) {
+            note = text;
+            document.getElementById("display").innerText = text;
+            return `Note saved: "${text}"`;
+          }
+        },
+        readNote: {
+          description: "Read the current sticky note",
+          parameters: { type: "object", properties: {} },
+          run() {
+            return `Current note: "${note}"`;
+          }
+        }
+      }
+    };
+  </script>
+</body>
+</html>
